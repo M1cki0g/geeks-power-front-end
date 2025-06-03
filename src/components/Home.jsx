@@ -2,7 +2,7 @@ export const Home = () => {
     return (
         <>
             <div className="min-h-screen flex flex-col bg-gray-50">
-                Hero Section - Using screen height utilities
+                {/* Hero Section - Using screen height utilities */}
                 <div className="bg-gradient-to-r from-blue-600 to-indigo-700 text-white h-screen flex items-center">
                     <div className="container mx-auto px-4">
                         <div className="max-w-4xl mx-auto text-center">
@@ -77,7 +77,7 @@ export const Home = () => {
                     <div className="container mx-auto px-4">
                         <div className="max-w-3xl mx-auto text-center">
                             <h2 className="text-4xl font-bold mb-8 text-gray-800">
-                                Start Learning Today
+                                About us
                             </h2>
                             <p className="text-xl text-gray-600 mb-12">
                                 Join our community and enhance your programming skills
