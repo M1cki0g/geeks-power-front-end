@@ -5,7 +5,7 @@ export const Footer = () => {
 
                 {/* About Section */}
                 <div>
-                    <h3 className="text-lg font-semibold mb-2">Geeks Blog</h3>
+                    <h3 className="text-lg font-semibold mb-2">Aminals Blog</h3>
                     <p className="text-sm text-gray-400">
                         Insights and stories from tech enthusiasts. Stay inspired, stay curious.
                     </p>
