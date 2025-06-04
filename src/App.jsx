@@ -1,12 +1,12 @@
 import { Routes, Route } from 'react-router-dom';
 import { BlogProvider } from './context/BlogContext';
-import { Navbar } from './layout/navbar';
-import { Footer } from './layout/Footer';
-import Home from './components/Home';
-import { AjouterBlog } from './pages/Ajouter_blog';
-import { Blogs } from './pages/Blogs';
-import { Login } from './pages/login';
-import { Register } from './pages/Register';
+import { Navbar } from './layout/Navbar.jsx';  // Updated path
+import { Footer } from './layout/Footer.jsx';  // Updated path
+import Home from './components/Home.jsx';      // Updated path
+import { AjouterBlog } from './pages/Ajouter_blog.jsx';  // Updated path
+import { Blogs } from './pages/Blogs.jsx';     // Updated path
+import { Login } from './pages/Login.jsx';     // Updated path
+import { Register } from './pages/Register.jsx'; // Updated path
 
 
 function App() {
