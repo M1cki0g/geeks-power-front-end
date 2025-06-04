@@ -5,7 +5,7 @@ import { Footer } from './layout/Footer';
 import Home from './components/Home';
 import { AjouterBlog } from './pages/Ajouter_blog';
 import { Blogs } from './pages/Blogs';
-import { Login } from './pages/Login';
+import { Login } from './pages/login';
 import { Register } from './pages/Register';
 
 function App() {

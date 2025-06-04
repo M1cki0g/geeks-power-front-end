@@ -6,48 +6,46 @@ export const AjouterBlog = () => {
     const navigate = useNavigate();
     const { addBlog } = useBlog();
     const [title, setTitle] = useState('');
-    const [content, setContent] = useState('');
-    const [image, setImage] = useState(null);
-    const [previewUrl, setPreviewUrl] = useState('');
+    const [text, setContent] = useState('');
+    const [imageUrl, setImageUrl] = useState('');
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if (!title.trim() || !content.trim()) {
+        if (!title.trim() || !text.trim()) {
             alert('Veuillez remplir tous les champs obligatoires');
             return;
         }
 
         try {
-            addBlog({
+            const postData = {
                 title: title.trim(),
-                content: content.trim(),
-                image: previewUrl || null
+                image: imageUrl.trim(),
+                text: text.trim(),
+            };
+
+            const response = await fetch('http://localhost:5000/api/posts', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify(postData)
             });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
 
             // Clear form and navigate
             setTitle('');
             setContent('');
-            setImage(null);
-            setPreviewUrl('');
+            setImageUrl('');
+            navigate('/blogs');
 
-            // Navigate after successful addition
-            navigate('/blogs', { replace: true });
         } catch (error) {
             console.error('Error:', error);
-            alert('Échec de l\'ajout du blog. Veuillez réessayer.');
-        }
-    };
-
-    const handleImageChange = (e) => {
-        const file = e.target.files[0];
-        if (file) {
-            setImage(file);
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                setPreviewUrl(reader.result);
-            };
-            reader.readAsDataURL(file);
+            alert('Échec de l\'ajout du blog. Veuillez réessayer plus tard.');
         }
     };
 
@@ -67,29 +65,29 @@ export const AjouterBlog = () => {
                     />
                 </div>
                 <div className="mb-4">
-                    <label className="block text-sm font-medium text-gray-700 mb-2" htmlFor="content">Contenu</label>
+                    <label className="block text-sm font-medium text-gray-700 mb-2" htmlFor="text">Contenu</label>
                     <textarea
-                        id="content"
+                        id="text"
                         rows="4"
-                        value={content}
+                        value={text}
                         onChange={(e) => setContent(e.target.value)}
                         className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900"
                         placeholder="Entrez le contenu du blog"
                     ></textarea>
                 </div>
                 <div className="mb-4">
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Image
-                    </label>
+                    <label className="block text-sm font-medium text-gray-700 mb-2" htmlFor="imageUrl">URL de l'image</label>
                     <input
-                        type="file"
-                        accept="image/*"
-                        onChange={handleImageChange}
-                        className="w-full"
+                        type="text"
+                        id="imageUrl"
+                        value={imageUrl}
+                        onChange={(e) => setImageUrl(e.target.value)}
+                        placeholder="https://exemple.com/image.jpg"
+                        className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900"
                     />
-                    {previewUrl && (
+                    {imageUrl && (
                         <img
-                            src={previewUrl}
+                            src={imageUrl}
                             alt="Preview"
                             className="mt-2 w-full h-48 object-cover rounded"
                         />

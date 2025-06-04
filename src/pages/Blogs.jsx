@@ -1,41 +1,68 @@
+import { useState, useEffect } from "react";
 import { Navbar } from "../layout/navbar";
 import { useBlog } from "../context/BlogContext";
 import { Link } from "react-router-dom";
 
 export const Blogs = () => {
-    const { blogs, deleteBlog, user } = useBlog();
+    const { deleteBlog, user } = useBlog();
+    const [posts, setPosts] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    const fetchPosts = async () => {
+        try {
+            const response = await fetch("http://localhost:5000/api/posts", {
+                headers: {
+                    'Accept': 'application/json'
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error("Network response was not ok");
+            }
+
+            const data = await response.json();
+            console.log('Fetched posts:', data);
+            setPosts(Array.isArray(data) ? data : []);
+            setLoading(false);
+        } catch (error) {
+            console.error("Error fetching posts:", error);
+            setError(error.message);
+            setLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        fetchPosts();
+    }, []);
+
+    if (loading) return <div className="text-center p-4">Loading...</div>;
+    if (error) return <div className="text-center text-red-500 p-4">{error}</div>;
 
     return (
         <div className="container mx-auto px-4 py-8">
             <div className="flex justify-between items-center mb-6">
                 <h1 className="text-3xl font-bold">Blogs</h1>
-                {/* <Link to="/ajouter-blog" className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
-                    Ajouter Blog
-                </Link> */}
             </div>
-            {blogs.length === 0 ? (
-                <p className="text-center text-gray-500">No blogs yet. Create your first blog!</p>
-            ) : (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {blogs.map(blog => (
-                        <div key={blog.id} className="bg-white p-6 rounded-lg shadow hover:shadow-lg transition-shadow">
-                            {blog.image && (
-                                <img src={blog.image} alt={blog.title} className="w-full h-48 object-cover mb-4 rounded" />
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {posts.map(post => (
+                    <div key={post._id} className="bg-white p-6 rounded-lg shadow hover:shadow-lg transition-shadow">
+                        {post.image && (
+                            <img src={post.image} alt={post.title} className="w-full h-48 object-cover mb-4 rounded" />
+                        )}
+                        <h2 className="text-xl font-semibold mb-2">{post.title}</h2>
+                        <p className="text-sm text-gray-500 mb-2">Par {post.author}</p>
+                        <p className="text-gray-600 mb-4">{post.content}</p>
+                        <div className="flex justify-end space-x-2">
+                            {user?.id === post.userId && (
+                                <button onClick={() => deleteBlog(post._id)} className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600">
+                                    Delete
+                                </button>
                             )}
-                            <h2 className="text-xl font-semibold mb-2">{blog.title}</h2>
-                            <p className="text-sm text-gray-500 mb-2">Par {blog.author}</p>
-                            <p className="text-gray-600 mb-4">{blog.content}</p>
-                            <div className="flex justify-end space-x-2">
-                                {(user?.id === blog.userId || !blog.userId) && (
-                                    <button onClick={() => deleteBlog(blog.id)} className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600">
-                                        Delete
-                                    </button>
-                                )}
-                            </div>
                         </div>
-                    ))}
-                </div>
-            )}
+                    </div>
+                ))}
+            </div>
         </div>
     );
 };
