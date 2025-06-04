@@ -1,5 +1,14 @@
-import Home from "../components/Home"
+
+import { Navbar } from "../layout/navbar"
+import { Footer } from "../layout/Footer"
+import {Home} from "../components/Home"
 
 export const Landing = () => {
-    return <Home />;
+    return (
+        <>
+            <Navbar />
+            <Home />
+            <Footer />
+        </>
+    )
 }

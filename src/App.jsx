@@ -8,6 +8,7 @@ import { Blogs } from './pages/Blogs';
 import { Login } from './pages/login';
 import { Register } from './pages/Register';
 
+
 function App() {
   return (
     <BlogProvider>
@@ -28,6 +29,8 @@ function App() {
       </BrowserRouter>
     </BlogProvider>
   );
+
+  )
 }
 
 export default App;
