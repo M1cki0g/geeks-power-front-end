@@ -6,7 +6,7 @@ export const Navbar = () => {
     return (
         <nav className="bg-gray-800 text-white p-4">
             <div className="container mx-auto flex justify-between items-center">
-                <Link to="/" className="text-xl font-bold">Geeks Blog</Link>
+                <Link to="/" className="text-xl font-bold">Animals Blog</Link>
                 <ul className="flex space-x-6">
                     <li><Link to="/" className={`hover:text-gray-300 ${location.pathname === '/' ? 'text-blue-400' : ''}`}>Home</Link></li>
                     <li><Link to="/blogs" className={`hover:text-gray-300 ${location.pathname === '/blogs' ? 'text-blue-400' : ''}`}>Blogs</Link></li>

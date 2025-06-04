@@ -1,10 +1,9 @@
 import { useState, useEffect } from "react";
-import { Navbar } from "../layout/navbar";
 import { useBlog } from "../context/BlogContext";
 import { Link } from "react-router-dom";
 
 export const Blogs = () => {
-    const { deleteBlog, user } = useBlog();
+    const { user } = useBlog();
     const [posts, setPosts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -32,6 +31,27 @@ export const Blogs = () => {
         }
     };
 
+    const handleDelete = async (id) => {
+        try {
+            const response = await fetch(`http://localhost:5000/api/posts/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to delete post');
+            }
+
+            // Refresh posts after deletion
+            fetchPosts();
+        } catch (error) {
+            console.error('Error deleting post:', error);
+            alert('Failed to delete post');
+        }
+    };
+
     useEffect(() => {
         fetchPosts();
     }, []);
@@ -54,11 +74,12 @@ export const Blogs = () => {
                         <p className="text-sm text-gray-500 mb-2">Par {post.author}</p>
                         <p className="text-gray-600 mb-4">{post.content}</p>
                         <div className="flex justify-end space-x-2">
-                            {user?.id === post.userId && (
-                                <button onClick={() => deleteBlog(post._id)} className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600">
-                                    Delete
-                                </button>
-                            )}
+                            <button
+                                onClick={() => handleDelete(post._id)}
+                                className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600"
+                            >
+                                Delete
+                            </button>
                         </div>
                     </div>
                 ))}
