@@ -1,7 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 import { BlogProvider } from './context/BlogContext';
-import { Navbar } from './layout/navbar';
-import { Footer } from './layout/Footer';
+import { Navbar } from './components/Navbar';  // Move Navbar to components folder
+import { Footer } from './components/Footer';  // Move Footer to components folder
 import Home from './components/Home';
 import { AjouterBlog } from './pages/Ajouter_blog';
 import { Blogs } from './pages/Blogs';
