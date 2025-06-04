@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { BlogProvider } from './context/BlogContext';
 import { Navbar } from './layout/navbar';
 import { Footer } from './layout/Footer';
@@ -28,4 +28,5 @@ function App() {
     </BlogProvider>
   );
 }
+
 export default App;
