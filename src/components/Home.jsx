@@ -82,15 +82,16 @@ function Home() {
           <div className="absolute inset-0 bg-gradient-to-r from-blue-900/70 to-purple-900/50 backdrop-blur-[2px]"></div>
           <div className="container mx-auto px-4 relative z-10">
             <div className="max-w-4xl mx-auto text-center">
-              <h1 className="text-white typing-text text-5xl md:text-7xl font-extrabold font-sans mb-8 whitespace-nowrap overflow-hidden border-r-4 border-white pr-1 drop-shadow-lg">
+              <h1 className="typing-text text-transparent bg-clip-text bg-gradient-to-r from-white via-blue-100 to-white text-5xl md:text-7xl font-black font-sans mb-8 whitespace-nowrap overflow-hidden border-r-4 border-white/50 pr-1 drop-shadow-[0_0_25px_rgba(255,255,255,0.3)]"
+              >
                 Stray Stories
               </h1>
-              <p className="text-white text-xl md:text-3xl mb-12 leading-relaxed font-light max-w-3xl mx-auto">
+              <p className="text-white/90 text-xl md:text-3xl mb-12 leading-relaxed font-light max-w-3xl mx-auto tracking-wide drop-shadow-lg backdrop-blur-sm bg-white/5 rounded-lg p-6">
                 Helping you find your missing pet — tips, resources, and real stories to bring them home faster.
               </p>
               <a
                 href="#featured"
-                className="bg-white/90 backdrop-blur-sm text-blue-600 px-10 py-4 rounded-full text-lg font-semibold hover:bg-white hover:scale-105 transition-all duration-300 inline-flex items-center gap-2 shadow-lg"
+                className="bg-gradient-to-r from-white/95 to-blue-50/95 backdrop-blur-sm text-blue-600 px-12 py-5 rounded-full text-lg font-bold hover:scale-105 transition-all duration-300 inline-flex items-center gap-3 shadow-xl hover:shadow-blue-500/20"
               >
                 Explore Articles
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
